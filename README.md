@@ -1,5 +1,5 @@
 # Relationen-3.0
-Dieser Plugin hilft dabei, seine Relationen zu Verwaltung. Diese werden im Profil angezeigt. Es gibt die Möglichkeit NPCs einzutragen. Die Relationen werden über das User CP verwaltet. Dort können Relationen gelöscht, zurück eingetragen (also man ist wo eingetragen und möchte diesen Charakter bei sich eintragen) und editiert werden. Alle Eintragungen müssen vom eingetragenden Charakter bestätigt werde, erst dann werden sie angezeigt.
+Dieser Plugin hilft dabei, seine Relationen zu verwalten. Diese werden im Profil angezeigt. Es gibt die Möglichkeit NPCs einzutragen. Die Relationen werden über das User CP verwaltet. Dort können Relationen gelöscht, zurück eingetragen (also man ist wo eingetragen und möchte diesen Charakter bei sich eintragen) und editiert werden. Alle Eintragungen müssen vom eingetragenden Charakter bestätigt werde, erst dann werden sie angezeigt.
 
 ## neue Datenbank
 - Relationen
