@@ -30,7 +30,7 @@ function relations_info()
     return array(
         "name" => "Relationsverwaltungssytem",
         "description" => "Hier können Charaktere ihre relations in ihren Profilen verwalten",
-        "website" => "",
+        "website" => "https://github.com/Ales12/Relationen-3.0/",
         "author" => "Ales",
         "authorsite" => "https://github.com/Ales12",
         "version" => "3.0",
