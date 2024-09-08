@@ -30,7 +30,7 @@ function relations_info()
     return array(
         "name" => "Relationsverwaltungssytem",
         "description" => "Hier können Charaktere ihre relations in ihren Profilen verwalten",
-        "website" => "https://github.com/Ales12/Relationen-3.0/",
+        "website" => "",
         "author" => "Ales",
         "authorsite" => "https://github.com/Ales12",
         "version" => "3.0",
@@ -514,7 +514,8 @@ document.getElementById("defaultOpen").click();
      $css = array(
         'name' => 'relations.css',
         'tid' => 1,
-        'attachedto' => '.relation_flex{
+        'attachedto' => '',
+        "stylesheet" => '.relation_flex{
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: center;
@@ -714,7 +715,6 @@ border-bottom: 1px solid #0f0f0f;
 	text-align: center;
 	padding: 5px;
 }',
-        "stylesheet" => '',
         'cachefile' => $db->escape_string(str_replace('/', '', 'relations.css')),
         'lastmodified' => time()
     );
