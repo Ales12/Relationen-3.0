@@ -17,7 +17,7 @@ if (class_exists('MybbStuff_MyAlerts_AlertTypeManager')) {
 }
 
 // user cp
-$plugins->add_hook('usercp_menu', 'relations_usercp_nav',30);
+$plugins->add_hook('usercp_menu', 'relations_usercp_nav', 30);
 $plugins->add_hook('usercp_start', 'relations_usercp');
 
 //wer ist wo
@@ -30,7 +30,7 @@ function relations_info()
     return array(
         "name" => "Relationsverwaltungssytem",
         "description" => "Hier können Charaktere ihre relations in ihren Profilen verwalten",
-        "website" => "",
+        "website" => "https://github.com/Ales12/Relationen-3.0/",
         "author" => "Ales",
         "authorsite" => "https://github.com/Ales12",
         "version" => "3.0",
@@ -153,7 +153,7 @@ function relations_install()
     // Don't forget this!
     rebuild_settings();
 
-    
+
     $insert_array = array(
         'title' => 'relations_addtoo',
         'template' => $db->escape_string('<a onclick="$(\'#rela_add\').modal({ fadeDuration: 250, keepelement: true, zIndex: (typeof modal_zindex !== \'undefined\' ? modal_zindex : 9999) }); return false;" style="cursor: pointer;">{$lang->relations_popup_add}</a>	<div class="modal" id="rela_add" style="display: none;"><form action="usercp.php?action=relations" method="post" id="submitrelation">			
@@ -190,7 +190,7 @@ function relations_install()
         'dateline' => TIME_NOW
     );
     $db->insert_query("templates", $insert_array);
-    
+
     $insert_array = array(
         'title' => 'relations_alert_other',
         'template' => $db->escape_string('<div class="red_alert">
@@ -201,7 +201,7 @@ function relations_install()
         'dateline' => TIME_NOW
     );
     $db->insert_query("templates", $insert_array);
-	
+
     $insert_array = array(
         'title' => 'relations_edit',
         'template' => $db->escape_string('<a onclick="$(\'#rela_edit\').modal({ fadeDuration: 250, keepelement: true, zIndex: (typeof modal_zindex !== \'undefined\' ? modal_zindex : 9999) }); return false;" style="cursor: pointer;">{$lang->relations_popup_edit}</a>	<div class="modal" id="rela_edit" style="display: none;"><form action="usercp.php?action=relations" method="post" id="editrelation">			
@@ -228,7 +228,7 @@ function relations_install()
         'dateline' => TIME_NOW
     );
     $db->insert_query("templates", $insert_array);
-	
+
     $insert_array = array(
         'title' => 'relations_form',
         'template' => $db->escape_string('<form action="member.php?action=profile&uid={$memprofile[\'uid\']}" method="post" id="submitrelation">			<input type="hidden" class="textbox" name="r_uid" id="r_uid" size="10" maxlength="1155" value="{$mybb->user[\'uid\']}"> 			<input type="hidden" class="textbox" name="r_reuid" id="r_reuid" size="10" maxlength="1155" value="{$memprofile[\'uid\']}"> 
@@ -254,7 +254,7 @@ function relations_install()
         'dateline' => TIME_NOW
     );
     $db->insert_query("templates", $insert_array);
-	
+
     $insert_array = array(
         'title' => 'relations_npc_form',
         'template' => $db->escape_string('<form action="member.php?action=profile&uid={$memprofile[\'uid\']}" method="post" id="submitrelation">
@@ -291,7 +291,7 @@ function relations_install()
         'dateline' => TIME_NOW
     );
     $db->insert_query("templates", $insert_array);
-	
+
     $insert_array = array(
         'title' => 'relations_profile',
         'template' => $db->escape_string('<table border="0" cellspacing="{$theme[\'borderwidth\']}" cellpadding="{$theme[\'tablespace\']}" class="tborder tfixed">
@@ -315,7 +315,7 @@ function relations_install()
         'dateline' => TIME_NOW
     );
     $db->insert_query("templates", $insert_array);
-	
+
     $insert_array = array(
         'title' => 'relations_profile_bit',
         'template' => $db->escape_string('<div class="profile_box">
@@ -334,7 +334,7 @@ function relations_install()
         'dateline' => TIME_NOW
     );
     $db->insert_query("templates", $insert_array);
-	
+
     $insert_array = array(
         'title' => 'relations_profile_cat',
         'template' => $db->escape_string('<div class="relation_box">
@@ -346,7 +346,7 @@ function relations_install()
         'dateline' => TIME_NOW
     );
     $db->insert_query("templates", $insert_array);
-	
+
     $insert_array = array(
         'title' => 'relations_profile_edit',
         'template' => $db->escape_string('<a onclick="$(\'#rela_edit_{$rela[\'rid\']}\').modal({ fadeDuration: 250, keepelement: true, zIndex: (typeof modal_zindex !== \'undefined\' ? modal_zindex : 9999) }); return false;" style="cursor: pointer;">{$lang->relations_popup_edit}</a>	<div class="modal" id="rela_edit_{$rela[\'rid\']}" style="display: none;"><form action="member.php?action=profile&uid={$memprofile}" method="post" id="editrelation">			
@@ -373,7 +373,7 @@ function relations_install()
         'dateline' => TIME_NOW
     );
     $db->insert_query("templates", $insert_array);
-	
+
     $insert_array = array(
         'title' => 'relations_profile_edit_npc',
         'template' => $db->escape_string('<a onclick="$(\'#rela_edit_{$rela[\'rid\']}\').modal({ fadeDuration: 250, keepelement: true, zIndex: (typeof modal_zindex !== \'undefined\' ? modal_zindex : 9999) }); return false;" style="cursor: pointer;">{$lang->relations_popup_edit}</a>	<div class="modal" id="rela_edit_{$rela[\'rid\']}" style="display: none;"><form action="member.php?action=profile&uid={$memprofile}" method="post" id="editrelation">			
@@ -409,7 +409,7 @@ function relations_install()
         'dateline' => TIME_NOW
     );
     $db->insert_query("templates", $insert_array);
-	
+
     $insert_array = array(
         'title' => 'relations_usercp',
         'template' => $db->escape_string('<html>
@@ -485,7 +485,7 @@ document.getElementById("defaultOpen").click();
         'dateline' => TIME_NOW
     );
     $db->insert_query("templates", $insert_array);
-	
+
     $insert_array = array(
         'title' => 'relations_usercp_bit',
         'template' => $db->escape_string('<div class="relations_box">
@@ -499,7 +499,7 @@ document.getElementById("defaultOpen").click();
         'dateline' => TIME_NOW
     );
     $db->insert_query("templates", $insert_array);
-	
+
     $insert_array = array(
         'title' => 'relations_usercp_nav',
         'template' => $db->escape_string('<tr><td class="trow1 smalltext"><a href="usercp.php?action=relations" class="usercp_nav_item usercp_nav_editlists">{$lang->relations_ucp_nav}</a></td></tr>'),
@@ -508,10 +508,10 @@ document.getElementById("defaultOpen").click();
         'dateline' => TIME_NOW
     );
     $db->insert_query("templates", $insert_array);
-	
+
     // CSS 
-     //CSS einfügen
-     $css = array(
+    //CSS einfügen
+    $css = array(
         'name' => 'relations.css',
         'tid' => 1,
         'attachedto' => '',
@@ -992,9 +992,19 @@ function relations_profile()
                 $username = format_name($rela['username'], $rela['usergroup'], $rela['displaygroup']);
                 $charaname = build_profile_link($username, $rela['uid']);
                 if ($avatar == 1) {
-                    $avatar = "{$avatar_fid}";
+                    $avatarfid = $db->fetch_field($db->simple_select("userfields", "{$avatar_fid}", "ufid = {$rela['uid']}"));
+                    if ($avatarfid) {
+                        $avatar = "{$avatarfid}";
+                    } else {
+                        $avatar = "{$theme['imgdir']}/{$default_avatar}";
+                    }
+
                 } else {
-                    $avatar = $rela['avatar'];
+                    if (!empty($rela['avatar'])) {
+                        $avatar = $rela['avatar'];
+                    } else {
+                        $avatar = "{$theme['imgdir']}/{$default_avatar}";
+                    }
                 }
                 $kind = $rela['r_kind'];
                 if ($age == 0) {
@@ -1050,6 +1060,10 @@ function relations_profile()
 
             if ($memuid == $ownuid) {
                 $options = "{$relations_edit} {$lang->relations_profile_inbetween} <a href='member.php?action=profile&delete_rela={$rela['rid']}'>{$lang->relations_profile_delete}</a>";
+            }
+
+            if ($mybb->user['uid'] == 0) {
+                $avatar = "{$theme['imgdir']}/{$default_avatar}";
             }
 
             eval ("\$relations_bit .= \"" . $templates->get("relations_profile_bit") . "\";");
