@@ -30,10 +30,10 @@ function relations_info()
     return array(
         "name" => "Relationsverwaltungssytem",
         "description" => "Hier können Charaktere ihre relations in ihren Profilen verwalten",
-        "website" => "https://github.com/Ales12/Relationen-3.0/",
+        "website" => "",
         "author" => "Ales",
         "authorsite" => "https://github.com/Ales12",
-        "version" => "3.0",
+        "version" => "2.0",
         "guid" => "",
         "codename" => "",
         "compatibility" => "*"
@@ -514,8 +514,7 @@ document.getElementById("defaultOpen").click();
     $css = array(
         'name' => 'relations.css',
         'tid' => 1,
-        'attachedto' => '',
-        "stylesheet" => '.relation_flex{
+        'attachedto' => '.relation_flex{
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: center;
@@ -715,6 +714,7 @@ border-bottom: 1px solid #0f0f0f;
 	text-align: center;
 	padding: 5px;
 }',
+        "stylesheet" => '',
         'cachefile' => $db->escape_string(str_replace('/', '', 'relations.css')),
         'lastmodified' => time()
     );
@@ -942,7 +942,7 @@ function relations_profile()
     $lastday = implode(".", $inplay_date);
     $inplay = new DateTime($lastday);
 
-
+    $relations_cat = "";
     foreach ($cat_setting as $rela_cat) {
         $relations_bit = "";
 
@@ -992,19 +992,9 @@ function relations_profile()
                 $username = format_name($rela['username'], $rela['usergroup'], $rela['displaygroup']);
                 $charaname = build_profile_link($username, $rela['uid']);
                 if ($avatar == 1) {
-                    $avatarfid = $db->fetch_field($db->simple_select("userfields", "{$avatar_fid}", "ufid = {$rela['uid']}"));
-                    if ($avatarfid) {
-                        $avatar = "{$avatarfid}";
-                    } else {
-                        $avatar = "{$theme['imgdir']}/{$default_avatar}";
-                    }
-
+                    $avatar = "{$avatar_fid}";
                 } else {
-                    if (!empty($rela['avatar'])) {
-                        $avatar = $rela['avatar'];
-                    } else {
-                        $avatar = "{$theme['imgdir']}/{$default_avatar}";
-                    }
+                    $avatar = $rela['avatar'];
                 }
                 $kind = $rela['r_kind'];
                 if ($age == 0) {
@@ -1062,10 +1052,6 @@ function relations_profile()
                 $options = "{$relations_edit} {$lang->relations_profile_inbetween} <a href='member.php?action=profile&delete_rela={$rela['rid']}'>{$lang->relations_profile_delete}</a>";
             }
 
-            if ($mybb->user['uid'] == 0) {
-                $avatar = "{$theme['imgdir']}/{$default_avatar}";
-            }
-
             eval ("\$relations_bit .= \"" . $templates->get("relations_profile_bit") . "\";");
         }
         eval ("\$relations_cat .= \"" . $templates->get("relations_profile_cat") . "\";");
@@ -1120,9 +1106,10 @@ function relations_profile()
         redirect("member.php?action=profile&uid={$memprofile['uid']}");
     }
 
-    $delete = $mybb->input['delete_rela'];
 
-    if ($delete) {
+    if (isset($mybb->input['delete_rela'])) {
+        $delete = "";
+        $delete = $mybb->input['delete_rela'];
         $db->delete_query("relations", "rid = {$delete}");
         redirect("member.php?action=profile&uid={$memprofile['uid']}");
     }
@@ -1162,8 +1149,9 @@ function relations_global_alert()
 
         $alert2 = $db->fetch_array($select_alert);
         $count = mysqli_num_rows($select_alert);
-        $user = $alert2['username'];
-
+        if (isset($alert2['username'])) {
+            $user = $alert2['username'];
+        }
         if ($mybb->user['uid'] != 0) {
             if ($count == '1') {
                 $request = "Relationsanfrage";
@@ -1210,7 +1198,7 @@ function relations_usercp_nav()
 
 function relations_usercp()
 {
-    global $mybb, $lang, $templates, $lang, $header, $headerinclude, $footer, $page, $usercpnav, $db, $relations_request, $options, $relations_edit;
+    global $mybb, $lang, $templates, $lang, $header, $headerinclude, $footer, $page, $usercpnav, $db, $relations_request, $options, $relations_edit, $theme, $colspan;
     $lang->load('relations');
     require_once MYBB_ROOT . "inc/class_parser.php";
     $parser = new postParser;
@@ -1353,7 +1341,7 @@ function relations_usercp()
                 $cat_options .= "<option value='{$r_cat}' {$checked}>{$r_cat}</option>";
 
             }
-
+            $relations_addtoo = "";
             eval ("\$relations_addtoo = \"" . $templates->get("relations_addtoo") . "\";");
 
 
@@ -1367,8 +1355,14 @@ function relations_usercp()
         }
 
         // Relationsanfrage bestätigen
-        $accept = $mybb->input['accepted'];
-        $r_uid = $mybb->input['uid'];
+        $accept = "";
+        if (isset($mybb->input['accepted'])) {
+            $accept = $mybb->input['accepted'];
+        }
+        $r_uid = 0;
+        if (isset($mybb->input['uid'])) {
+            $r_uid = $mybb->input['uid'];
+        }
         if ($accept) {
             $accept_request = array(
                 "r_ok" => 1
@@ -1398,8 +1392,10 @@ function relations_usercp()
         }
 
         // Relationsanfrage ablehnen
-        $refuse = $mybb->input['refuse'];
-
+        $refuse = "";
+        if (isset($mybb->input['refuse'])) {
+            $refuse = $mybb->input['refuse'];
+        }
         if ($refuse) {
             $rela_infos = $db->fetch_array($db->simple_select("relations", "*", "rid = {$refuse}"));
             $kind = $rela_infos['r_kind'];
@@ -1689,8 +1685,10 @@ function relations_alerts()
 function relations_user_activity($user_activity)
 {
     global $user;
-    if (my_strpos($user['location'], "usercp.php?action=relations") !== false) {
-        $user_activity['activity'] = "relations";
+    if (isset($user['location'])) {
+        if (my_strpos($user['location'], "usercp.php?action=relations") !== false) {
+            $user_activity['activity'] = "relations";
+        }
     }
 
     return $user_activity;
